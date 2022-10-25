@@ -14,4 +14,6 @@ npm run start
 ```npm run test```
 
 ## How to run project
-open the browser and go to http://localhost:8080/
+open the browser and go to http://localhost:8080/ and enter the url of the article you want to analyze
+
+
