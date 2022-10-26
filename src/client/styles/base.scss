@@ -3,6 +3,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: antiquewhite;
 }
 
 main {
@@ -10,13 +11,23 @@ main {
 }
 
 section {
-    max-width: 800px;
+    max-width: 854px;
     margin: 50px auto;
 }
 
 #res{
     text-align: center;
     font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.result{
+    display: inline;
+    color: #9bbffe;
 }
 
 #loading {

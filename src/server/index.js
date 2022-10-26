@@ -21,13 +21,8 @@ app.get('/', function (req, res) {
     //res.sendFile(resolve('src/client/views/index.html'))
 })
 
-// designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
-    console.log('Example app listening on port 8081!')
-})
-
 //get data from meaning cloud api and send it to the client side
-app.post('/sentiment', async(req, res)=> {
+app.post('/api', async(req, res)=> {
     let url = req.body.url
     const fullURL = `${baseURL}?key=${Apikey}&url=${url}&lang=en`;
     console.log(fullURL);
@@ -35,17 +30,13 @@ app.post('/sentiment', async(req, res)=> {
     try {
         const Data = await response.json();
         let polarity = Data.score_tag;
-        let agreement = Data.agreement;
         let subjectivity = Data.subjectivity;
-        let confidence = Data.confidence;
-        let irony = Data.irony;
+        let text = Data.sentence_list[0].text;
 
         let data = {
             polarity,
-            agreement,
             subjectivity,
-            confidence,
-            irony
+            text
         }
         
         res.send(data);
@@ -56,5 +47,8 @@ app.post('/sentiment', async(req, res)=> {
 
 })
 
-
+// designates what port the app will listen to for incoming requests
+app.listen(8081, function () {
+    console.log('Example app listening on port 8081!')
+})
 

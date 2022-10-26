@@ -3,3 +3,13 @@ header {
     justify-content: space-between;
     padding: 10px 40px;
 }
+
+.logo img {
+    width: 130px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.logo {
+    z-index: 1;
+}

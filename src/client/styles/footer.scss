@@ -1,0 +1,45 @@
+.footer {
+    margin: 10px;
+    grid-area: ft;
+    background-color: antiquewhite;
+    text-align: center;
+    margin-top: 30px;
+    border-top: #333 solid 2px;
+    padding: 10px;
+
+    a{
+        text-decoration: none;
+        color: #333;
+    }
+
+    p{
+        margin: 0;
+        color: #333;
+    }
+}
+
+
+.social-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+.twitter,
+.linkedin,
+.github {
+    transition: color 0.2s;
+}
+
+.twitter:hover {
+    color: rgb(29 155 240);
+}
+
+.linkedin:hover {
+    color: rgb(44 155 255);
+}
+
+.github:hover {
+    color: rgb(77, 77, 77)
+}

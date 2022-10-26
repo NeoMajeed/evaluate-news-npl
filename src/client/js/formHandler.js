@@ -1,10 +1,9 @@
 let polarity = document.getElementById('polarity');
 let subjectivity = document.getElementById('subjectivity');
-let confidence = document.getElementById('confidence');
-let irony = document.getElementById('irony');
+let text = document.getElementById('text');
 
 
-const PostData = async (url = "", data = "") =>{
+const postData = async (url = "", data = "") =>{
     const response = await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
@@ -14,8 +13,8 @@ const PostData = async (url = "", data = "") =>{
         body: JSON.stringify(data),
     });
     try {
-        const newData = await response.json();
-        return newData;
+        const Data = await response.json();
+        return Data;
     } catch (error) {
         console.log("error", error);
     }
@@ -26,8 +25,7 @@ function handleSubmit(event) {
     event.preventDefault()
     polarity.innerHTML = '';
     subjectivity.innerHTML = '';
-    confidence.innerHTML = '';
-    irony.innerHTML = '';
+    text.innerHTML = '';
 
     // check what text was put into the form field
     let formText = document.getElementById('name').value
@@ -39,17 +37,16 @@ function handleSubmit(event) {
         document.getElementById('loading').innerHTML = '<div class="lds-ripple"><div></div><div></div></div>';
 
         //fetch data from the server
-        PostData('http://localhost:8081/sentiment', {url: formText})
+        postData('http://localhost:8081/api', {url: formText})
         .then(function(res) {
             //remove loading animation
             document.getElementById('loading').innerHTML = '';
 
             //update UI
             console.log(res);
-            polarity.innerHTML = "Polarity: " + polarityChecker(res.polarity)
-            subjectivity.innerHTML = "Subjectivity: " + res.subjectivity
-            confidence.innerHTML = "Confidence: " + res.confidence
-            irony.innerHTML = "Irony: " + res.irony
+            polarity.innerHTML = "Polarity: <p class=\"result\" >" + checkForPolarity(res.polarity) + "</p>";
+            subjectivity.innerHTML = "Subjectivity: <p class=\"result\"> " + res.subjectivity + "</p>";
+            text.innerHTML = "Text: <P class=\" result\" >" + res.text + "</p>";
 
         })
     } else {
@@ -58,28 +55,22 @@ function handleSubmit(event) {
 
 }
 
-function polarityChecker(score) {
-    let display;
-    switch (score){
-        case 'P+':
-            display = 'strong positive';
-            break;
-        case 'P':
-            display = 'positive';
-            break;
-        case 'NEW':
-            display = 'neutral';
-            break;
-        case 'N':
-            display = 'negative';
-            break;
-        case 'N+':
-            display = 'strong negative';
-            break;
-        case 'NONE':
-            display = 'no sentiment';
+function checkForPolarity(score) {
+    let result;
+    if (score === 'P' || score === 'P+') {
+        result = 'POSITIVE';
     }
-    return display.toUpperCase();
+    else if (score === 'NEU') {
+        result = 'NAUTRAL';
+    }
+    else if (score === 'N' || score === 'N+') {
+        result = 'NEGATIVE';
+    }
+    else{
+        result = 'NONE';
+    }
+    return result;
+    
 }
 
 export { handleSubmit}
